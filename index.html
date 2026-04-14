@@ -1,165 +1,69 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wonderplan – ett AI-verktyg för reseplanering</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f5f3;
-      color: #1a1a1a;
-      min-height: 100vh;
-      padding: 3rem 1.5rem;
-    }
-    .wp-page { max-width: 680px; margin: 0 auto; }
-    .wp-badge {
-      display: inline-block;
-      background: #EEEDFE;
-      color: #3C3489;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 1rem;
-    }
-    h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: #1a1a1a;
-      margin: 0 0 0.5rem;
-    }
-    .wp-subtitle {
-      font-size: 15px;
-      color: #666;
-      margin: 0 0 1.25rem;
-      line-height: 1.6;
-    }
-    .wp-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #534AB7;
-      text-decoration: none;
-      border: 1px solid #AFA9EC;
-      border-radius: 8px;
-      padding: 8px 18px;
-      background: #EEEDFE;
-      transition: background 0.15s;
-    }
-    .wp-link:hover { background: #CECBF6; }
-    .divider {
-      height: 1px;
-      background: #e0e0e0;
-      margin: 2rem 0;
-    }
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 1rem;
-    }
-    .review-text { font-size: 15px; color: #1a1a1a; line-height: 1.8; }
-    .review-para { margin-bottom: 1rem; }
-    .review-para:last-child { margin-bottom: 0; }
-    .imp-card {
-      background: #fff;
-      border: 1px solid #e8e8e8;
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 10px;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .imp-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: #EEEDFE;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .imp-text { font-size: 14px; color: #1a1a1a; line-height: 1.6; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wonderplan - AI reseplanering</title>
 </head>
 <body>
-  <div class="wp-page">
-    <span class="wp-badge">AI-verktyg</span>
-    <h1>Wonderplan – ett AI-verktyg för reseplanering</h1>
-    <p class="wp-subtitle">Planera din nästa resa med hjälp av artificiell intelligens.</p>
-    <a href="https://wonderplan.ai/trip-planner" target="_blank" class="wp-link">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7.5 1H13V6.5M13 1L6 8M5 2H2C1.45 2 1 2.45 1 3V12C1 12.55 1.45 13 2 13H11C11.55 13 12 12.55 12 12V9" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Öppna Wonderplan
-    </a>
 
-    <div class="divider"></div>
+    <h1>Wonderplan - Ett AI-verktyg för reseplanering</h1>
 
-    <p class="section-label">Recension</p>
-    <div class="review-text">
-      <p class="review-para">Wonderplan är ett AI-verktyg vars syfte är att underlätta planeringen inför resor. Det hjälper dig hitta boende och aktiviteter, och planerar saker att göra under resan.</p>
-      <p class="review-para">När man öppnar dess sida för reseplanering börjar man med att besvara frågor så att resan kan anpassas till ens personliga behov.</p>
-      <p class="review-para">Efter att frågorna besvarats skapas ett upplägg för resan. Verktyget rekommenderar boplatser och planerar dagarna med olika aktiviteter. Man kan radera aktiviteter, lägga till nya och ändra ordningen. Det finns även en kostnadsprognos. Slutligen kan man ladda ner en PDF av resan att skriva ut.</p>
-      <p class="review-para">Den främsta användningen av verktyget är för resenärer som vill ha en enkel resplan anpassad till deras behov och intressen. Det passar den som vill ha koll på allt och ha en ordnad resa, och gynnar även den som behöver rekommendationer.</p>
-    </div>
+    <p>
+        Besök verktyget här:
+        <a href="https://wonderplan.ai/trip-planner" target="_blank">
+            https://wonderplan.ai/trip-planner
+        </a>
+    </p>
 
-    <div class="divider"></div>
+    <h2>Projektbeskrivning</h2>
+    <p>
+        Denna uppgift går ut på att använda, testa och utvärdera ett AI-verktyg.
+        Arbetet dokumenteras och presenteras på en webbsida som publiceras på Github.
+    </p>
 
-    <p class="section-label">Möjliga förbättringar</p>
+    <h2>Verktyget</h2>
+    <p>
+        Wonderplan är ett AI-verktyg som hjälper användare att planera resor genom att skapa personliga resplaner baserade på preferenser.
+    </p>
 
-    <div class="imp-card">
-      <div class="imp-icon">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="7" cy="7" r="5.5" stroke="#534AB7" stroke-width="1.3"/>
-          <text x="7" y="10.5" text-anchor="middle" font-size="7" fill="#534AB7" font-weight="600">kr</text>
-        </svg>
-      </div>
-      <span class="imp-text">Möjlighet att välja utgångsvaluta så att valutaomvandlingen inte alltid utgår från USD.</span>
-    </div>
+    <h2>Allmän beskrivning</h2>
+    <p>
+        Verktyget används för att snabbt generera reseplaner. Det kan spara tid och ge inspiration till resmål, aktiviteter och scheman.
+    </p>
 
-    <div class="imp-card">
-      <div class="imp-icon">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 1C4.79 1 3 2.79 3 5c0 3 4 8 4 8s4-5 4-8c0-2.21-1.79-4-4-4z" stroke="#534AB7" stroke-width="1.3"/>
-          <circle cx="7" cy="5" r="1.3" stroke="#534AB7" stroke-width="1.1"/>
-        </svg>
-      </div>
-      <span class="imp-text">När man valt ett boende märks det ut på kartan med avstånd och färdalternativ till olika destinationer.</span>
-    </div>
+    <h2>Syfte och nytta</h2>
+    <p>
+        Syftet är att förenkla reseplanering. Verktyget kan vara användbart för privatpersoner, resenärer och turister som vill ha en strukturerad plan.
+    </p>
 
-    <div class="imp-card">
-      <div class="imp-icon">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1.5" y="1.5" width="11" height="11" rx="2" stroke="#534AB7" stroke-width="1.3"/>
-          <circle cx="4" cy="4" r="0.8" fill="#534AB7"/>
-          <circle cx="7" cy="4" r="0.8" fill="#534AB7"/>
-          <circle cx="4" cy="7" r="0.8" fill="#534AB7"/>
-          <circle cx="7" cy="7" r="0.8" fill="#534AB7"/>
-          <circle cx="10" cy="4" r="0.8" fill="#534AB7"/>
-        </svg>
-      </div>
-      <span class="imp-text">Alla rekommenderade platser markeras ut på kartan för bättre överblick.</span>
-    </div>
+    <h2>Användning av verktyget (Use case)</h2>
+    <p>
+        Jag började med att ange destination, datum och intressen. Därefter genererade verktyget en färdig resplan med aktiviteter och förslag.
+        Processen dokumenterades steg för steg med skärmbilder.
+    </p>
 
-    <div class="imp-card">
-      <div class="imp-icon">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="7" cy="7" r="5.5" stroke="#534AB7" stroke-width="1.3"/>
-          <path d="M7 4v3.5l2 1.5" stroke="#534AB7" stroke-width="1.3" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="imp-text">Mer information om mindre kända platser som inte har lika stor digital närvaro.</span>
-    </div>
-  </div>
+    <h2>Alternativa användningsområden</h2>
+    <p>
+        Verktyget kan även användas för affärsresor, weekendresor eller inspiration till framtida resor.
+    </p>
+
+    <h2>Kostnad</h2>
+    <p>
+        Wonderplan är gratis att använda, men vissa funktioner kan vara begränsade eller kräva betalning i framtiden.
+    </p>
+
+    <h2>Analys</h2>
+    <p>
+        Verktyget gav ett bra och snabbt resultat. Fördelar är enkel användning och tydliga planer.
+        Nackdelar kan vara att vissa förslag inte alltid passar perfekt.
+    </p>
+
+    <h2>Slutsats</h2>
+    <p>
+        Sammanfattningsvis är Wonderplan ett användbart verktyg för reseplanering,
+        särskilt för personer som vill spara tid och få inspiration.
+    </p>
+
 </body>
 </html>
