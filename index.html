@@ -1,149 +1,430 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wonderplan - AI reseplanering</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f4f6f8;
-            color: #333;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wonderplan – AI-recension</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        header {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
+    :root {
+      --bg: #f5f0e8;
+      --card: #fffef9;
+      --ink: #1a1409;
+      --muted: #6b6356;
+      --accent: #2d6a4f;
+      --accent-light: #d8f3dc;
+      --warn: #8b4513;
+      --warn-light: #f5e6d3;
+      --border: rgba(26,20,9,0.12);
+      --star: #c9a227;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
 
-        header a {
-            color: white;
-            text-decoration: underline;
-            font-size: 1.1em;
-        }
+    /* Hero */
+    .hero {
+      background: var(--ink);
+      color: #f5f0e8;
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.02) 40px,
+        rgba(255,255,255,0.02) 41px
+      );
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #d8f3dc;
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: #a8d8b9; }
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(245,240,232,0.65);
+      font-weight: 300;
+      max-width: 460px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #d8f3dc;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 13px 28px;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .hero-link:hover { background: #3a8a65; }
+    .hero-link svg { width: 14px; height: 14px; }
 
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
-        }
+    /* Rating strip */
+    .rating-strip {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .rating-item { text-align: center; }
+    .rating-item .label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .rating-item .stars { color: var(--star); font-size: 1rem; letter-spacing: 1px; }
+    .rating-item .score {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
 
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
+    /* Layout */
+    .page { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
 
-        h2 {
-            color: #4facfe;
-            margin-top: 0;
-        }
+    /* Section titles */
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    p { font-size: 1rem; line-height: 1.75; color: #3a3228; margin-bottom: 16px; }
+    p:last-child { margin-bottom: 0; }
 
-        p {
-            line-height: 1.6;
-        }
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 48px 0;
+    }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #222;
-            color: white;
-            margin-top: 40px;
-        }
-    </style>
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px;
+    }
+    .feature-card .icon {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+    .feature-card h3 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+    .feature-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* Pros / Cons */
+    .verdict-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    @media (max-width: 520px) { .verdict-grid { grid-template-columns: 1fr; } }
+
+    .verdict-box {
+      border-radius: 4px;
+      padding: 20px 22px;
+    }
+    .verdict-box.pros { background: var(--accent-light); border-left: 3px solid var(--accent); }
+    .verdict-box.cons { background: var(--warn-light); border-left: 3px solid var(--warn); }
+    .verdict-box h3 {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .verdict-box.pros h3 { color: var(--accent); }
+    .verdict-box.cons h3 { color: var(--warn); }
+    .verdict-box ul { list-style: none; }
+    .verdict-box ul li {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--ink);
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      gap: 8px;
+    }
+    .verdict-box ul li:last-child { border-bottom: none; }
+    .verdict-box ul li::before { flex-shrink: 0; margin-top: 1px; }
+    .pros ul li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+    .cons ul li::before { content: '○'; color: var(--warn); }
+
+    /* Use cases */
+    .use-list {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .use-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 14px 18px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .use-item .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    /* Conclusion */
+    .conclusion-box {
+      background: var(--ink);
+      color: #f5f0e8;
+      border-radius: 4px;
+      padding: 36px 32px;
+      margin-top: 32px;
+    }
+    .conclusion-box h2 {
+      font-size: 1.5rem;
+      color: #f5f0e8;
+      margin-bottom: 12px;
+    }
+    .conclusion-box p { color: rgba(245,240,232,0.75); font-size: 0.95rem; }
+    .conclusion-box .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #d8f3dc;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 2px;
+      margin-top: 22px;
+      transition: background 0.2s;
+    }
+    .conclusion-box .cta:hover { background: #3a8a65; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>Wonderplan - Ett AI-verktyg för reseplanering</h1>
-        <p>
-            <a href="https://wonderplan.ai/trip-planner" target="_blank">
-                Gå till Wonderplan
-            </a>
-        </p>
-    </header>
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-tag">AI-verktygsrecension</div>
+    <h1>Wonderplan<br><span>AI Trip Planner</span></h1>
+    <p class="hero-sub">En djupdykning i det gratis AI-verktyget för reseplanering – styrkor, svagheter och vem det passar bäst.</p>
+    <a class="hero-link" href="https://wonderplan.ai/" target="_blank" rel="noopener">
+      Besök Wonderplan
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+  </header>
 
-    <div class="container">
+  <!-- Rating strip -->
+  <div class="rating-strip">
+    <div class="rating-item">
+      <span class="label">Användarvänlighet</span>
+      <div class="stars">★★★★★</div>
+    </div>
+    <div class="rating-item">
+      <span class="label">Funktioner</span>
+      <div class="stars">★★★★☆</div>
+    </div>
+    <div class="rating-item">
+      <span class="label">Anpassning</span>
+      <div class="stars">★★★★☆</div>
+    </div>
+    <div class="rating-item">
+      <span class="label">Helhetsbetyg</span>
+      <span class="score">4 / 5</span>
+    </div>
+  </div>
 
-        <div class="card">
-            <h2>Projektbeskrivning</h2>
-            <p>
-                Denna uppgift går ut på att använda, testa och utvärdera ett AI-verktyg.
-                Arbetet dokumenteras och presenteras på en webbsida som publiceras på Github.
-            </p>
-        </div>
+  <!-- Main content -->
+  <main class="page">
 
-        <div class="card">
-            <h2>Verktyget</h2>
-            <p>
-                Wonderplan är ett AI-verktyg som hjälper användare att planera resor genom att skapa personliga resplaner.
-            </p>
-        </div>
+    <!-- Intro -->
+    <div class="section-label">Introduktion</div>
+    <h2>Vad är Wonderplan?</h2>
+    <p>Wonderplan är ett gratis AI-verktyg riktat till reseälskare. På webbplatsen hittar du rekommendationer inom försäkring, transport och boende – men stjärnan i deras utbud är den AI-drivna resplaneraren.</p>
+    <p>Verktyget låter dig antingen beskriva din resa i fritext eller manuellt besvara en serie frågor för att bygga upp ett personanpassat reseupplägg från grunden.</p>
 
-        <div class="card">
-            <h2>Allmän beskrivning</h2>
-            <p>
-                Verktyget används för att snabbt generera reseplaner och ge inspiration till resmål och aktiviteter.
-            </p>
-        </div>
+    <div class="divider"></div>
 
-        <div class="card">
-            <h2>Syfte och nytta</h2>
-            <p>
-                Syftet är att förenkla reseplanering. Det är särskilt användbart för resenärer som vill spara tid.
-            </p>
-        </div>
+    <!-- Funktioner -->
+    <div class="section-label">Funktioner</div>
+    <h2>Vad kan verktyget göra?</h2>
+    <p>När du öppnar reseplaneraren väljer du om du vill beskriva resan för AI:n eller svara på frågor manuellt. Resultatet är ett skräddarsytt upplägg med boplatser, dagsprogram och aktiviteter – presenterat på en interaktiv karta.</p>
 
-        <div class="card">
-            <h2>Användning av verktyget (Use case)</h2>
-            <p>
-                Jag angav destination, datum och intressen. Därefter skapade verktyget en komplett resplan.
-            </p>
-        </div>
-
-        <div class="card">
-            <h2>Alternativa användningsområden</h2>
-            <p>
-                Kan användas för weekendresor, affärsresor eller som inspiration för framtida resor.
-            </p>
-        </div>
-
-        <div class="card">
-            <h2>Kostnad</h2>
-            <p>
-                Verktyget är gratis att använda, men vissa funktioner kan bli betalversioner.
-            </p>
-        </div>
-
-        <div class="card">
-            <h2>Analys</h2>
-            <p>
-                Fördelar är snabbhet och enkelhet. Nackdelar kan vara att förslagen inte alltid passar perfekt.
-            </p>
-        </div>
-
-        <div class="card">
-            <h2>Slutsats</h2>
-            <p>
-                Wonderplan är ett användbart verktyg för effektiv reseplanering och inspiration.
-            </p>
-        </div>
-
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="icon">✈️</div>
+        <h3>AI-genererad resplan</h3>
+        <p>Beskriv din resa och AI:n fyller i detaljerna automatiskt åt dig.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🗺️</div>
+        <h3>Interaktiv karta</h3>
+        <p>Se var alla aktiviteter och boplatser ligger geografiskt i förhållande till varandra.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">✏️</div>
+        <h3>Redigerbar plan</h3>
+        <p>Lägg till, ta bort eller ändra ordning på aktiviteter direkt i gränssnittet.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">💰</div>
+        <h3>Kostnadsuppskattning</h3>
+        <p>Resans ungefärliga kostnad beräknas och visas i slutet av planen.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📄</div>
+        <h3>PDF-export</h3>
+        <p>Ladda ned din resplan som en PDF-fil att skriva ut och ta med på resan.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🏨</div>
+        <h3>Boende & restauranger</h3>
+        <p>Personliga rekommendationer anpassade efter dina svar och preferenser.</p>
+      </div>
     </div>
 
-    <footer>
-        <p>AI-projekt VT26</p>
-    </footer>
+    <div class="divider"></div>
+
+    <!-- Use cases -->
+    <div class="section-label">Användningsområden</div>
+    <h2>Vem passar Wonderplan för?</h2>
+    <div class="use-list">
+      <div class="use-item"><div class="dot"></div><span>Resenärer som vill ha en strukturerad och detaljerad plan utan att lägga timmar på research.</span></div>
+      <div class="use-item"><div class="dot"></div><span>Den som behöver inspiration och rekommendationer på boplatser och restauranger.</span></div>
+      <div class="use-item"><div class="dot"></div><span>Semesterplanerare som vill ha ett visuellt dagsprogram lätt att följa och dela med resesällskapet.</span></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Verdict -->
+    <div class="section-label">Utvärdering</div>
+    <h2>Fördelar och förbättringsområden</h2>
+
+    <div class="verdict-grid">
+      <div class="verdict-box pros">
+        <h3>Fördelar</h3>
+        <ul>
+          <li>Lätt att komma igång, intuitivt gränssnitt</li>
+          <li>Genererar välplanerade resor med bra destinationsval</li>
+          <li>Flexibel – välj AI-beskrivning eller manuella svar</li>
+          <li>Redigerbar plan anpassad till dina behov</li>
+          <li>Gratis att använda</li>
+        </ul>
+      </div>
+      <div class="verdict-box cons">
+        <h3>Förbättringsområden</h3>
+        <ul>
+          <li>Alla kostnader visas endast i USD</li>
+          <li>Kartan saknar GPS-integration och avståndskalkyl</li>
+          <li>Mindre platser och destinationer saknas ofta</li>
+          <li>PDF-exporten kan upplevas som rörig och svårnavigerad</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Conclusion -->
+    <div class="section-label">Slutsats</div>
+    <div class="conclusion-box">
+      <h2>Rekommenderat för reseälskare</h2>
+      <p>Wonderplan är ett riktigt användbart verktyg för den som vill ha ordning och struktur på sin kommande resa. AI:n levererar personanpassade planer snabbt och enkelt – trots vissa förbättringsmöjligheter är helhetsupplevelsen imponerande för ett gratis verktyg. Wonderplan välkomnar feedback, vilket lovar gott för framtida uppdateringar.</p>
+      <a class="cta" href="https://wonderplan.ai/" target="_blank" rel="noopener">
+        Prova Wonderplan gratis
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+
+  </main>
+
+  <footer>
+    AI-recension av Wonderplan &nbsp;·&nbsp; <a href="https://wonderplan.ai/" target="_blank" rel="noopener" style="color: inherit;">wonderplan.ai</a>
+  </footer>
 
 </body>
 </html>
